@@ -1,0 +1,52 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Import Bootstrap 3 -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="{% static 'Users/main.css' %}" />
+    {% block css %}{% endblock %}
+
+    <!-- Additional JS -->
+    {% block js %}{% endblock %}
+
+    <title>{% block page_title %}{% endblock %} | Booking System</title>
+</head>
+<body>
+    <nav class="navbar navbar-fixed-top navbar-inverse">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a href="{% url 'index' %}" class="navbar-brand">Booking System</a>
+            </div>
+            <ul class="nav navbar-nav">
+        {% block nav_left %}
+            {% if user.is_authenticated %}
+                <li class="active"><a href="{% url 'index' %}">Dashboard</a></li>
+                <li><a href="{% url 'items' %}">Items</a></li>
+            {% endif %}
+        {% endblock %}
+            </ul>
+
+            <ul class="nav navbar-nav navbar-right">
+                {% block nav_right %}
+                    {% if user.is_authenticated %}
+                        <li><a><span class="glyphicon glyphicon-user"></span> {{ user.username }}</a></li>
+                        <li><a href="{% url 'logout' %}"><span class="glyphicon glyphicon-log-out"></span> Log out</a></li>
+                    {% else %}
+                        <li><a href="{% url 'signup' %}"><span class="glyphicon glyphicon-user"></span> Sign up</a></li>
+                    {% endif %}
+                {% endblock %}
+            </ul>
+        </div>
+    </nav>
+    <div id="content-container">
+    {% block content %}{% endblock %}
+    </div>
+</body>
+</html>

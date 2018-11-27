@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block scripts %}
+    <script src="{% static 'Bookings/bookings.js' %}"></script>
+{% endblock %}
+{% block page_title %}Available items{% endblock %}
+{% block content %}
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2" style="background:white;">
+        <div class="row" id="home-container">
+            <h3>AVAILABLE ITEMS</h3>
+            {% if items %}
+                <form action="{% url 'items' %}" method="POST" id="booking_form">
+                    {% csrf_token %}
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>Title</th>
+                                <th>Category</th>
+                                <th>Available copies</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        {% for item in items %}
+                            <tr>
+                                <td><input type="checkbox" value="{{ item.title }}" name="item" /></td>
+                                <td><a href="#">{{ item.title }}</a></td>
+                                <td>{{ item.category__title }}</td>
+                                <td>{{ item.qt }}</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                    <input type="submit" class="btn btn-default" value="Book selected item(s)" />
+                </form>
+            </div>
+        </div>
+    </div>
+    {% else %}
+        <h2>Unfortunately there are no items available at the moment.</h2>
+    {% endif %}
+{% endblock %}

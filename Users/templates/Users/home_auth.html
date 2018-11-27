@@ -1,0 +1,22 @@
+{% load bookings %}
+<h3>{% if user.is_superuser %} ADMINISTRATION {% else %} DASHBOARD {% endif %}</h3>
+{% if user.is_superuser %}
+    <a class="btn btn-default" href="{% url 'all_bookings' %}">Manage bookings</a>
+    <a class="btn btn-default" href="{% url 'add_item' %}">Add an item</a>
+
+{% else %}
+ <ul class="nav nav-tabs">
+    <li class="active"><a data-toggle="tab" href="#current-bookings">Current bookings</a></li>
+    <li><a data-toggle="tab" href="#past-bookings">Past bookings</a></li>
+ </ul>
+ <div class="tab-content">
+    <div id="current-bookings" class="tab-pane active">
+        <h3>My current bookings</h3>
+        {% bookings_table user %}
+    </div>
+    <div id="past-bookings" class="tab-pane fade">
+        <h3>My past bookings</h3>
+        {% past_bookings_table user %}
+    </div>
+ </div>
+{% endif %}

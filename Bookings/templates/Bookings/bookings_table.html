@@ -1,0 +1,24 @@
+{# Used for rendering the bookings table for a given user. #}
+{%  if bookings %}
+<table class="table table-striped">
+    <thead>
+    <tr>
+        <th>Item</th><th>Expiry date</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for booking in bookings %}
+        <tr>
+            <td>
+            {{ booking.item.title }}
+            </td>
+            <td>
+            {{ booking.expiry_date }}
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% else %}
+    <p>You do not have any bookings. Why not make some?</p>
+{% endif %}

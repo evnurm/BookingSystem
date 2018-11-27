@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+    {% block page_title %}
+        {% if user.is_authenticated %}
+        Dashboard
+        {% else %}
+            Home
+        {% endif %}
+    {% endblock %}
+
+{% block content %}
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2" style="background:white;">
+                <div class="row" id="home-container">
+                    {% if not user.is_authenticated %}
+                    {% include 'Users/home_unauth.html' %}
+                    {% else %}
+                    {% include 'Users/home_auth.html' %}
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+{% endblock %}

@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% block page_title %}Manage bookings{% endblock %}
+{% block content %}
+<div class="row">
+    <div class="col-md-8 col-md-offset-2" style="background:white;">
+        <div class="row" id="home-container">
+            <h3>ALL BOOKINGS</h3>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>User</th>
+                        <th>Item</th>
+                        <th>Date issued</th>
+                        <th>Expiry date</th>
+                        <th></th> <!-- Mark as fetched -->
+                        <th></th> <!-- Mark as returned -->
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for booking in bookings %}
+                    <tr>
+                        <td>{{ booking.user.user }}</td>
+                        <td>{{ booking.item }}</td>
+                        <td>{{ booking.date }}</td>
+                        <td>{{ booking.expiry_date }}</td>
+                        <td><button>Mark as fetched</button></td>
+                        <td><button>Mark as returned</button></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

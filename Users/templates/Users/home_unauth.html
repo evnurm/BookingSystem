@@ -1,0 +1,20 @@
+<div class="col-md-12">
+ <h1>Booking System</h1>
+</div>
+<div class="col-md-12" id="login-form">
+    <h4><span class="glyphicon glyphicon-log-in"></span> Log in</h4>
+    <form action="{% url 'index' %}" method="POST">
+        {% csrf_token %}
+        {% for field in form %}
+            {{ field }}
+            {{ field.errors }}
+        {% endfor %}
+        {% if failed %}
+            <p>Incorrect username or password!</p>
+        {% endif %}
+        <input type="submit" value="Log in"  class="btn btn-default" />
+    </form>
+    <div>
+        <p>Don't have an account? <a href="{% url 'signup' %}">Sign up</a>!</p>
+    </div>
+</div>
